@@ -1,0 +1,250 @@
+ {
+     "Data":
+     [
+        {
+            "name": "random",
+            "nodeId": "ns=1;s=simulation.random"
+        },
+       
+        {
+            "name": "Pump1_1_RPM",
+            "nodeId": "ns=1;s=PLC1.Pump1_1_RPM"
+        },
+        {
+            "name": "Pump1_1_Run",
+            "nodeId": "ns=1;s=PLC1.Pump1_1_Run"
+        },
+        {
+            "name": "Pump1_1_Err",
+            "nodeId": "ns=1;s=PLC1.Pump1_1_Err"
+        },
+
+        {
+            "name": "Pump1_2_RPM",
+            "nodeId": "ns=1;s=PLC1.Pump1_2_RPM"
+        },
+        {
+            "name": "Pump1_2_Run",
+            "nodeId": "ns=1;s=PLC1.Pump1_2_Run"
+        },
+        {
+            "name": "Pump1_2_Err",
+            "nodeId": "ns=1;s=PLC1.Pump1_2_Err"
+        },
+        {
+            "name": "OverLoad_1",
+            "nodeId": "ns=1;s=PLC1.OverLoad_1"
+        },
+
+
+        
+        {
+            "name": "Pump2_1_RPM",
+            "nodeId": "ns=1;s=PLC1.Pump2_1_RPM"
+        },
+        {
+            "name": "Pump2_1_Run",
+            "nodeId": "ns=1;s=PLC1.Pump2_1_Run"
+        },
+        {
+            "name": "Pump2_1_Err",
+            "nodeId": "ns=1;s=PLC1.Pump2_1_Err"
+        },
+
+        {
+            "name": "Pump2_2_RPM",
+            "nodeId": "ns=1;s=PLC1.Pump2_2_RPM"
+        },  
+        {
+            "name": "Pump2_2_Run",
+            "nodeId": "ns=1;s=PLC1.Pump2_2_Run"
+        },
+        {
+            "name": "Pump2_2_Err",
+            "nodeId": "ns=1;s=PLC1.Pump2_2_Err"
+        },
+        {
+            "name": "OverLoad_2",
+            "nodeId": "ns=1;s=PLC1.OverLoad_2"
+        },
+
+
+        {
+            "name": "Pump3_1_RPM",
+            "nodeId": "ns=1;s=PLC1.Pump3_1_RPM"
+        },
+        {
+            "name": "Pump3_1_Run",
+            "nodeId": "ns=1;s=PLC1.Pump3_1_Run"
+        },
+        {
+            "name": "Pump3_1_Err",
+            "nodeId": "ns=1;s=PLC1.Pump3_1_Err"
+        },
+
+        {
+            "name": "Pump3_2_RPM",
+            "nodeId": "ns=1;s=PLC1.Pump3_2_RPM"
+        },
+        {
+            "name": "Pump3_2_Run",
+            "nodeId": "ns=1;s=PLC1.Pump3_2_Run"
+        },
+        {
+            "name": "Pump3_2_Err",
+            "nodeId": "ns=1;s=PLC1.Pump3_2_Err"
+        },
+        {
+            "name": "OverLoad_3",
+            "nodeId": "ns=1;s=PLC1.OverLoad_3"
+        },
+        
+
+        {
+            "name": "Pump4_1_RPM",
+            "nodeId": "ns=1;s=PLC2.Pump4_1_RPM"
+        },
+        {
+            "name": "Pump4_1_Run",
+            "nodeId": "ns=1;s=PLC2.Pump4_1_Run"
+        },
+        {
+            "name": "Pump4_1_Err",
+            "nodeId": "ns=1;s=PLC2.Pump4_1_Err"
+        },
+        {
+            "name": "Pump4_2_RPM",
+            "nodeId": "ns=1;s=PLC2.Pump4_2_RPM"
+        },
+        {
+            "name": "Pump4_2_Run",
+            "nodeId": "ns=1;s=PLC2.Pump4_2_Run"
+        },
+        {
+            "name": "Pump4_2_Err",
+            "nodeId": "ns=1;s=PLC2.Pump4_2_Err"
+        },
+        {
+            "name": "OverLoad_4",
+            "nodeId": "ns=1;s=PLC2.OverLoad_4"
+        },
+
+
+
+        {
+            "name": "Pump5_1_RPM",
+            "nodeId": "ns=1;s=PLC2.Pump5_1_RPM"
+        },
+        {
+            "name": "Pump5_1_Run",
+            "nodeId": "ns=1;s=PLC2.Pump5_1_Run"
+        },
+        {
+            "name": "Pump5_1_Err",
+            "nodeId": "ns=1;s=PLC2.Pump5_1_Err"
+        },
+        {
+            "name": "Pump5_2_RPM",
+            "nodeId": "ns=1;s=PLC2.Pump5_2_RPM"
+        },
+        {
+            "name": "Pump5_2_Run",
+            "nodeId": "ns=1;s=PLC2.Pump5_2_Run"
+        },
+        {
+            "name": "Pump5_2_Err",
+            "nodeId": "ns=1;s=PLC2.Pump5_2_Err"
+        },
+        {
+            "name": "OverLoad_5",
+            "nodeId": "ns=1;s=PLC2.OverLoad_5"
+        },
+
+        
+        
+        {
+            "name": "h_KK",
+            
+            "nodeId": "ns=1;s=PLC1.h_KK"
+        },
+        {
+            "name": "h_HK",
+            "nodeId": "ns=1;s=PLC2.h_HK"
+        },
+        {
+            "name": "h_Lang",
+            "nodeId": "ns=1;s=PLC2.h_Lang"
+        },
+        
+        
+        {
+            "name": "h_HoChua",
+            "nodeId": "ns=1;s=PLC1.h_HoChua"
+        },
+        {
+            "name": "h_CB",
+            "nodeId": "ns=1;s=PLC1.h_CB"
+        },
+        {
+            "name": "h_NAOH",
+            "nodeId": "ns=1;s=PLC1.h_NAOH"
+        },
+        {
+            "name": "h_HCL",
+            
+            "nodeId": "ns=1;s=PLC1.h_HCL"
+        },
+        {
+            "name": "h_TH",
+            
+            "nodeId": "ns=1;s=PLC1.h_TH"
+        },
+        {
+            "name": "h_Temp",
+            "nodeId": "ns=1;s=PLC2.h_Temp"
+        },
+       
+
+        {
+            "name": "T1",
+            "nodeId": "ns=1;s=PLC1.T1"
+        },
+        {
+            "name": "T2",
+            "nodeId": "ns=1;s=PLC1.T2"
+        } ,
+        {
+            "name": "T3",
+            "nodeId": "ns=1;s=PLC2.T3"
+        },
+        {
+            "name": "DO",
+            "nodeId": "ns=1;s=PLC2.DO"
+        },
+        {
+            "name": "pH",
+            "nodeId": "ns=1;s=PLC1.pH"
+        },
+        {
+            "name": "Flow",
+            "nodeId": "ns=1;s=PLC1.Flow"
+        },
+        {
+            "name": "flow2",
+            "nodeId": "ns=1;s=PLC2.flow2"
+        },
+        
+        {
+            "name": "Lamp_Run",
+            "nodeId": "ns=1;s=PLC1.Lamp_Run"
+        },
+        {
+            "name": "Lamp_Stop",
+            "nodeId": "ns=1;s=PLC1.Lamp_Stop"
+        },
+        {
+            "name": "Lamp_Warr",
+            "nodeId": "ns=1;s=PLC1.Lamp_Warr"
+        }
+    ]
+ }   

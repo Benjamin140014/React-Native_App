@@ -54,7 +54,6 @@ export default class Signup extends Component {
             password: '',
           });
           this.props.navigation.navigate('Login');
-          
         })
         .catch(error => this.setState({errorMessage: error.message}));
     }
@@ -132,7 +131,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: 'lightslategrey',
   },
   Icon: {
     position: 'absolute',
@@ -159,6 +158,7 @@ const styles = StyleSheet.create({
     color: '#3740FE',
     marginTop: 25,
     textAlign: 'center',
+    fontSize: 16,
   },
   btnRegister: {
     width: WIDTH - 20,
@@ -169,9 +169,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   text: {
-    fontSize: 16,
+    fontSize: 20,
     textAlign: 'center',
-    fontSize: 25,
+    fontWeight: 'bold',
   },
   preloader: {
     left: 0,
@@ -181,6 +181,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: 'lightslategrey',
   },
 });

@@ -1,0 +1,4 @@
+#Tue Jul 21 12:27:07 ICT 2020
+base.0=C\:\\Users\\hotru\\OneDrive\\Desktop\\App_Mobile\\android\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

@@ -6,14 +6,11 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
-  ScrollView,
-  Alert,
   Dimensions,
   Image,
 } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import Modal from 'react-native-modal';
-import { FlatList } from 'react-native-gesture-handler';
+import io from 'socket.io-client';
 
 var checkState = {run3_1: false , error3_1: false , 
   run3_2: false , error3_2: false ,
@@ -21,29 +18,6 @@ var checkState = {run3_1: false , error3_1: false ,
   run4_1: false , error4_1: false , 
   run4_2: false , error4_2: false ,
   OverLoad_4: false} ;
-var allVariableGet = [
-  'pmp3_Auto-Man',
-  'pmp3_Motor1_Run',
-  'pmp3_Motor2_Run' , 
-  'Pump3_1_Run' ,
-  'Pump3_1_Err' ,
-  'Pump3_1_RPM' ,
-  'Pump3_2_Run' ,
-  'Pump3_2_Err' ,
-  'Pump3_2_RPM' ,
-  'OverLoad_3' ,
-   
-  'pmp4_Auto-Man',
-  'pmp4_Motor1_Run',
-  'pmp4_Motor2_Run' , 
-  'Pump4_1_Run' ,
-  'Pump4_1_Err' ,
-  'Pump4_1_RPM' ,
-  'Pump4_2_Run' ,
-  'Pump4_2_Err' ,
-  'Pump4_2_RPM' ,
-  'OverLoad_4' ,
-] ; 
 const {width: WIDTH} = Dimensions.get('window');
 export default class Modals extends Component {
   constructor(props) {
@@ -105,185 +79,9 @@ export default class Modals extends Component {
   toggleModal2 = () => {
     this.setState({isModalVisiblePump4: !this.state.isModalVisiblePump4});
   };
-   // get Api
-   getApi = (namevariable) => {
-    fetch(`http://192.168.1.100:3000/api/get/${namevariable}`, {
-      method: 'GET',
-    })
-      .then(response => response.json())
-      .then(json => { 
-          // color pump1 
-          if(namevariable === 'pmp3_Auto-Man'){
-            this.setState({colorButtonManAutoPump3: json.value}) ;
-          }
-           if(namevariable === 'pmp3_Motor1_Run'){
-            this.setState({colorButtonStartStopPump3_1: json.value}) ; 
-           }
-           if(namevariable === 'pmp3_Motor2_Run'){
-            this.setState({colorButtonStartStopPump3_2: json.value}) ; 
-           }
-
-           if(namevariable === 'pmp4_Auto-Man'){
-            this.setState({colorButtonManAutoPump4: json.value}) ;
-           }
-           if(namevariable === 'pmp4_Motor1_Run'){
-            this.setState({colorButtonStartStopPump4_1: json.value}) ; 
-           }
-           if(namevariable === 'pmp4_Motor2_Run'){
-            this.setState({colorButtonStartStopPump4_2: json.value}) ; 
-           }
-           if(namevariable === 'Pump3_1_RPM'){
-            this.setState({readRPM3_1: json.value});  
-           }
-           if(namevariable === 'Pump3_2_RPM'){
-            this.setState({readRPM3_2: json.value});  
-           }
-           if(namevariable === 'Pump4_1_RPM'){
-            this.setState({readRPM4_1: json.value});  
-           }
-           if(namevariable === 'Pump4_2_RPM'){
-            this.setState({readRPM4_2: json.value});  
-           }
-           // pump1_1
-           if(namevariable === 'Pump3_1_Run'){
-             if(json.value === true){
-              this.setState({TextStatusPump3_1 : 'RUN'}) ;
-              this.setState({colorTextPump3_1: true}) ; 
-              this.setState({imageStatusPump3_1 : require('../../../image/Pump_048.png')}) ;
-              checkState.run3_1 = true ;
-             }else{
-               checkState.run3_1 = false ; 
-             }
-           }
-           if(namevariable === 'Pump3_1_Err'){
-            if(json.value === true){
-              this.setState({TextStatusPump3_1 : 'ERROR'}) ;
-              this.setState({colorTextPump3_1: false}) ; 
-              this.setState({imageStatusPump3_1 : require('../../../image/Pump_049.png')}) ;
-              checkState.error3_1 = true
-             }else{
-               checkState.error3_1 = false
-             }
-           }
-           if(checkState.run3_1 === false && checkState.error3_1 === false && checkState.OverLoad_3 ===false){
-            this.setState({TextStatusPump3_1 : 'OFF'}) ;
-            this.setState({colorTextPump3_1: false}) ; 
-            this.setState({imageStatusPump3_1 : require('../../../image/Pump_047.png')}) ;
-           }
-           // pump1_2 
-           if(namevariable === 'Pump3_2_Run'){
-            if(json.value === true){
-             this.setState({TextStatusPump3_2 : 'RUN'}) ;
-             this.setState({colorTextPump3_2: true}) ; 
-             this.setState({imageStatusPump3_2 : require('../../../image/Pump_048.png')}) ;
-             checkState.run3_2 = true ;
-            }else{
-              checkState.run3_2 = false ; 
-            }
-          }
-          if(namevariable === 'Pump3_2_Err'){
-           if(json.value === true){
-             this.setState({TextStatusPump3_2 : 'ERROR'}) ;
-             this.setState({colorTextPump3_2: false}) ; 
-             this.setState({imageStatusPump3_2 : require('../../../image/Pump_049.png')}) ;
-             checkState.error3_2 = true
-            }else{
-              checkState.error3_2 = false
-            }
-          }
-          if(checkState.run3_2 === false && checkState.error3_2 === false && checkState.OverLoad_3 ===false){
-           this.setState({TextStatusPump3_2 : 'OFF'}) ;
-           this.setState({colorTextPump3_2: false}) ; 
-           this.setState({imageStatusPump3_2 : require('../../../image/Pump_047.png')}) ;
-          }
-          // overload 1
-          if(namevariable === 'OverLoad_3'){
-            if(json.value === true){
-              this.setState({TextStatusPump3_1 : 'Overload'}) ;
-              this.setState({colorTextPump3_1: false}) ; 
-              this.setState({imageStatusPump3_1 : require('../../../image/Pump_049.png')}) ;
-              this.setState({TextStatusPump3_2 : 'Overload'}) ;
-              this.setState({colorTextPump3_2: false}) ; 
-              this.setState({imageStatusPump3_2 : require('../../../image/Pump_049.png')}) ;
-              checkState.OverLoad_3 = true ; 
-             }else{
-               checkState.OverLoad_3 = false ; 
-             }
-           }
-           //pump2_1
-           if(namevariable === 'Pump4_1_Run'){
-            if(json.value === true){
-             this.setState({TextStatusPump4_1 : 'RUN'}) ;
-             this.setState({colorTextPump4_1: true}) ; 
-             this.setState({imageStatusPump4_1 : require('../../../image/Pump_048.png')}) ;
-             checkState.run4_1 = true ;
-            }else{
-              checkState.run4_1 = false ; 
-            }
-          }
-          if(namevariable === 'Pump4_1_Err'){
-           if(json.value === true){
-             this.setState({TextStatusPump4_1 : 'ERROR'}) ;
-             this.setState({colorTextPump4_1: false}) ; 
-             this.setState({imageStatusPump4_1 : require('../../../image/Pump_049.png')}) ;
-             checkState.error4_1 = true
-            }else{
-              checkState.error4_1 = false
-            }
-          }
-          if(checkState.run4_1 === false && checkState.error4_1 === false && checkState.OverLoad_4 ===false){
-           this.setState({TextStatusPump4_1 : 'OFF'}) ;
-           this.setState({colorTextPump4_1: false}) ; 
-           this.setState({imageStatusPump4_1 : require('../../../image/Pump_047.png')}) ;
-          }
-          // pump2_2
-          if(namevariable === 'Pump4_2_Run'){
-            if(json.value === true){
-             this.setState({TextStatusPump4_2 : 'RUN'}) ;
-             this.setState({colorTextPump4_2: true}) ; 
-             this.setState({imageStatusPump4_2 : require('../../../image/Pump_048.png')}) ;
-             checkState.run4_2 = true ;
-            }else{
-              checkState.run4_2 = false ; 
-            }
-          }
-          if(namevariable === 'Pump4_2_Err'){
-           if(json.value === true){
-             this.setState({TextStatusPump4_2 : 'ERROR'}) ;
-             this.setState({colorTextPump4_2: false}) ; 
-             this.setState({imageStatusPump4_2 : require('../../../image/Pump_049.png')}) ;
-             checkState.error4_2 = true
-            }else{
-              checkState.error4_2 = false
-            }
-          }
-          if(checkState.run4_2 === false && checkState.error4_2 === false && checkState.OverLoad_4 ===false){
-           this.setState({TextStatusPump4_2 : 'OFF'}) ;
-           this.setState({colorTextPump4_2: false}) ; 
-           this.setState({imageStatusPump4_2 : require('../../../image/Pump_047.png')}) ;
-          }
-           // overload 2
-           if(namevariable === 'OverLoad_4'){
-            if(json.value === true){
-              this.setState({TextStatusPump4_1 : 'Overload'}) ;
-              this.setState({colorTextPump4_1: false}) ; 
-              this.setState({imageStatusPump4_1 : require('../../../image/Pump_049.png')}) ;
-              this.setState({TextStatusPump4_2 : 'Overload'}) ;
-              this.setState({colorTextPump4_2: false}) ; 
-              this.setState({imageStatusPump4_2 : require('../../../image/Pump_049.png')}) ;
-              checkState.OverLoad_4 = true ; 
-             }else{
-               checkState.OverLoad_4 = false ; 
-             }
-           }
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
   // post Api
   postApi = (nameDevice, nameVariable, value, dataType) => {
-    fetch(`http://192.168.1.100:3000/api/post/${nameVariable}`, {
+    fetch(`http://180.214.236.174:3000/api/post/${nameVariable}`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -380,12 +178,140 @@ export default class Modals extends Component {
   }
   // get api color 
   componentDidMount(){
-  //  setInterval(() => {
-  //    for(let i=0 ; i < allVariableGet.length ; i++){
-  //    this.getApi(allVariableGet[i])
-  //    }  
-  //  }, 2000);
+    this.socket = io('http://180.214.236.174:4000');
+      this.socket.on('loadDataControl', (data) => {
+  
+          this.setState({readRPM3_1: data[15].value});  
+          // pump1_1
+            if(data[16].value === true){
+             this.setState({TextStatusPump3_1 : 'RUN'}) ;
+             this.setState({colorTextPump3_1: true}) ; 
+             this.setState({imageStatusPump3_1 : require('../../../image/Pump_048.png')}) ;
+             checkState.run3_1 = true ;
+            }else{
+              checkState.run3_1 = false ; 
+            }
+          
+           if(data[17].value=== true){
+             this.setState({TextStatusPump3_1 : 'ERROR'}) ;
+             this.setState({colorTextPump3_1: false}) ; 
+             this.setState({imageStatusPump3_1 : require('../../../image/Pump_049.png')}) ;
+             checkState.error3_1 = true
+            }else{
+              checkState.error3_1 = false
+            }
+          
+          if(checkState.run3_1 === false && checkState.error3_1 === false && checkState.OverLoad_3 ===false){
+           this.setState({TextStatusPump3_1 : 'OFF'}) ;
+           this.setState({colorTextPump3_1: false}) ; 
+           this.setState({imageStatusPump3_1 : require('../../../image/Pump_047.png')}) ;
+          }
+      
+          this.setState({readRPM3_2: data[18].value});  
+         
+          // pump1_2 
+        
+            if(data[19].value === true){
+             this.setState({TextStatusPump3_2 : 'RUN'}) ;
+             this.setState({colorTextPump3_2: true}) ; 
+             this.setState({imageStatusPump3_2 : require('../../../image/Pump_048.png')}) ;
+             checkState.run3_2 = true ;
+            }else{
+              checkState.run3_2 = false ; 
+            }
+         
+           if(data[20].value === true){
+             this.setState({TextStatusPump3_2 : 'ERROR'}) ;
+             this.setState({colorTextPump3_2: false}) ; 
+             this.setState({imageStatusPump3_2 : require('../../../image/Pump_049.png')}) ;
+             checkState.error3_2 = true
+            }else{
+              checkState.error3_2 = false
+            }
+          
+          if(checkState.run3_2 === false && checkState.error3_2 === false && checkState.OverLoad_3 ===false){
+           this.setState({TextStatusPump3_2 : 'OFF'}) ;
+           this.setState({colorTextPump3_2: false}) ; 
+           this.setState({imageStatusPump3_2 : require('../../../image/Pump_047.png')}) ;
+          }
+          // overload 1
+         
+            if(data[21].value === true){
+              this.setState({TextStatusPump3_1 : 'Overload'}) ;
+              this.setState({colorTextPump3_1: false}) ; 
+              this.setState({imageStatusPump3_1 : require('../../../image/Pump_049.png')}) ;
+              this.setState({TextStatusPump3_2 : 'Overload'}) ;
+              this.setState({colorTextPump3_2: false}) ; 
+              this.setState({imageStatusPump3_2 : require('../../../image/Pump_049.png')}) ;
+              checkState.OverLoad_3 = true ; 
+             }else{
+               checkState.OverLoad_3 = false ; 
+             }
 
+          this.setState({readRPM4_1: data[22].value});  
+         
+         //pump4_1
+         
+          if(data[23].value === true){
+           this.setState({TextStatusPump4_1 : 'RUN'}) ;
+           this.setState({colorTextPump4_1: true}) ; 
+           this.setState({imageStatusPump4_1 : require('../../../image/Pump_048.png')}) ;
+           checkState.run4_1 = true ;
+          }else{
+            checkState.run4_1 = false ; 
+          }
+        
+         if(data[24].value === true){
+           this.setState({TextStatusPump4_1 : 'ERROR'}) ;
+           this.setState({colorTextPump4_1: false}) ; 
+           this.setState({imageStatusPump4_1 : require('../../../image/Pump_049.png')}) ;
+           checkState.error4_1 = true
+          }else{
+            checkState.error4_1 = false
+          }
+        
+        if(checkState.run4_1 === false && checkState.error4_1 === false && checkState.OverLoad_4 ===false){
+         this.setState({TextStatusPump4_1 : 'OFF'}) ;
+         this.setState({colorTextPump4_1: false}) ; 
+         this.setState({imageStatusPump4_1 : require('../../../image/Pump_047.png')}) ;
+        }
+          this.setState({readRPM4_2: data[25].value});  
+        // pump4_2
+        
+          if(data[26].value === true){
+           this.setState({TextStatusPump4_2 : 'RUN'}) ;
+           this.setState({colorTextPump4_2: true}) ; 
+           this.setState({imageStatusPump4_2 : require('../../../image/Pump_048.png')}) ;
+           checkState.run4_2 = true ;
+          }else{
+            checkState.run4_2 = false ; 
+          }
+         if(data[27].value === true){
+           this.setState({TextStatusPump4_2 : 'ERROR'}) ;
+           this.setState({colorTextPump4_2: false}) ; 
+           this.setState({imageStatusPump4_2 : require('../../../image/Pump_049.png')}) ;
+           checkState.error4_2 = true
+          }else{
+            checkState.error4_2 = false
+          }
+        if(checkState.run4_2 === false && checkState.error4_2 === false && checkState.OverLoad_4 ===false){
+         this.setState({TextStatusPump4_2 : 'OFF'}) ;
+         this.setState({colorTextPump4_2: false}) ; 
+         this.setState({imageStatusPump4_2 : require('../../../image/Pump_047.png')}) ;
+        }
+         // overload 4
+          if(data[28].value === true){
+            this.setState({TextStatusPump4_1 : 'Overload'}) ;
+            this.setState({colorTextPump4_1: false}) ; 
+            this.setState({imageStatusPump4_1 : require('../../../image/Pump_049.png')}) ;
+            this.setState({TextStatusPump4_2 : 'Overload'}) ;
+            this.setState({colorTextPump4_2: false}) ; 
+            this.setState({imageStatusPump4_2 : require('../../../image/Pump_049.png')}) ;
+            checkState.OverLoad_4 = true ; 
+           }else{
+             checkState.OverLoad_4 = false ; 
+           }
+      })   
   }
   render() {
     return (
@@ -844,7 +770,7 @@ const styles = StyleSheet.create({
   pump12Panel: {
     flex: 1,
     flexDirection: 'row',
-    width: WIDTH - 10,
+    width: WIDTH - 5,
     height: 30,
     marginTop: 5,
     borderRadius: 10,
@@ -901,7 +827,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     alignItems: 'center',
     borderRadius: 5,
-    backgroundColor: '#DDDDDD',
+    backgroundColor: 'darkslategrey',
     height: 10,
     width: 100,
     marginBottom: 3,

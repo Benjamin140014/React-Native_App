@@ -13,7 +13,10 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {FlatList} from 'react-native';
+import io from "socket.io-client";
 const {width: WIDTH} = Dimensions.get('window');
+
+const socket = io('http://180.214.236.174:4000');
 
 export default class control extends Component {
   constructor(props) {
@@ -23,34 +26,9 @@ export default class control extends Component {
       colorStartStop: false,
     };
   }
-  // get Api
-  getApi = (namevariable) => {
-    fetch(`http://192.168.1.100:3000/api/get/${namevariable}`, {
-      method: 'GET',
-    })
-      .then(response => response.json())
-      .then(json => {
-          if(namevariable === 'Auto-Man_System_PLC1'){
-            this.setState({colorAutoMan: json.value}) ;
-          }
-           if(namevariable === 'Run_System_PLC1'){
-            this.setState({colorStartStop: json.value}) ; 
-           }
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
-  // get api color 
-  componentDidMount(){
-    //   setInterval(() => {
-    //     this.getApi('Auto-Man_System_PLC1') ;
-    //     this.getApi('Run_System_PLC1') ; 
-    //   }, 1000);
-  }
   // post Api
   postApi = (nameDevice, nameVariable, value, dataType) => {
-    fetch(`http://192.168.1.100:3000/api/post/${nameVariable}`, {
+    fetch(`http://180.214.236.174:3000/api/post/${nameVariable}`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -92,8 +70,17 @@ export default class control extends Component {
     setTimeout(() => {
         this.postApi('PLC1', 'Confirm_System_PLC1', false, 'Boolean');
         this.postApi('PLC2', 'Confirm_System_PLC2', false, 'Boolean');
+        socket.emit(`setVariableMainPanel`, 'ok' )
     },500);
   };
+
+  componentDidMount(){
+    socket.on('finishSetVariable',(data)=>{
+        this.setState({colorAutoMan: data.value55})
+        this.setState({colorStartStop: data.value56})
+    })
+  }
+
   render() {
     return (
       <View style={styles.containerTabControlPanel}>
@@ -156,7 +143,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     width: WIDTH - 150,
     height: 30,
-    marginTop: 60,
+    marginTop: 25,
     borderRadius: 10,
     backgroundColor: 'skyblue',
     alignItems: 'center',
